@@ -1,0 +1,3158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Карта мотивации сотрудника</title>
+
+<style>
+:root {
+    --bg1: #080b28;
+    --bg2: #171044;
+    --bg3: #29145e;
+
+    --purple: #8064ff;
+    --purple2: #a48fff;
+    --cyan: #28d5cf;
+
+    --white: #ffffff;
+    --text: #f4f4ff;
+    --muted: #aeb2d0;
+
+    --dark: #17192f;
+    --gray: #686d85;
+
+    --light: #f7f7fc;
+    --border: #e1e3ef;
+
+    --green: #37c995;
+    --orange: #ffae62;
+    --red: #ef7180;
+
+    --shadow: 0 25px 70px rgba(0,0,0,.22);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 12% 8%,
+            rgba(128,100,255,.28),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(40,213,207,.13),
+            transparent 27%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(128,100,255,.14),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            var(--bg1),
+            var(--bg2),
+            var(--bg3)
+        );
+
+    padding: 28px 15px 60px;
+}
+
+.container {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+    text-align: center;
+    margin: 10px 0 28px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 15px;
+
+    border-radius: 30px;
+
+    color: #cfc7ff;
+
+    background: rgba(128,100,255,.13);
+
+    border: 1px solid rgba(164,143,255,.30);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    margin-bottom: 17px;
+}
+
+.header h1 {
+    margin: 0 0 13px;
+
+    font-size: clamp(34px, 7vw, 58px);
+
+    line-height: 1;
+
+    letter-spacing: -1.5px;
+}
+
+.header-subtitle {
+    max-width: 690px;
+
+    margin: 0 auto;
+
+    color: var(--muted);
+
+    line-height: 1.65;
+
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress-card {
+    padding: 18px 20px;
+
+    margin-bottom: 20px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.075);
+
+    border: 1px solid rgba(255,255,255,.13);
+
+    backdrop-filter: blur(15px);
+}
+
+.progress-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+.progress-number {
+    color: #dcd8ff;
+
+    font-weight: 700;
+}
+
+.progress {
+    width: 100%;
+
+    height: 8px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.10);
+}
+
+.progress-bar {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--cyan)
+        );
+
+    transition: width .3s ease;
+}
+
+
+/* =====================================================
+   WHITE CARDS
+===================================================== */
+
+.card {
+    background: rgba(255,255,255,.97);
+
+    color: var(--dark);
+
+    border-radius: 25px;
+
+    padding: 30px;
+
+    margin-bottom: 20px;
+
+    box-shadow: var(--shadow);
+}
+
+.card h2 {
+    margin: 0 0 10px;
+
+    font-size: 26px;
+
+    letter-spacing: -.4px;
+}
+
+.card-intro {
+    color: var(--gray);
+
+    line-height: 1.65;
+
+    margin: 0 0 28px;
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.section-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin: 34px 0 20px;
+
+    padding-top: 8px;
+
+    border-top: 1px solid #ececf4;
+}
+
+.section-number {
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple2)
+        );
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+.section-title h3 {
+    margin: 0;
+
+    font-size: 20px;
+}
+
+
+/* =====================================================
+   QUESTIONS
+===================================================== */
+
+.question {
+    margin: 25px 0;
+}
+
+.question-title {
+    margin-bottom: 12px;
+
+    color: #24273d;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+.question-number {
+    color: #6752cf;
+
+    margin-right: 5px;
+}
+
+.options {
+    display: grid;
+
+    gap: 9px;
+}
+
+.option {
+    position: relative;
+}
+
+.option input {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.option label {
+    display: block;
+
+    padding: 14px 16px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: #fff;
+
+    color: #45495f;
+
+    cursor: pointer;
+
+    line-height: 1.45;
+
+    transition:
+        border-color .2s,
+        background .2s,
+        transform .2s,
+        box-shadow .2s;
+}
+
+.option label:hover {
+    border-color: #a596e9;
+
+    transform: translateY(-1px);
+}
+
+.option input:checked + label {
+    color: #30246d;
+
+    border-color: var(--purple);
+
+    background:
+        linear-gradient(
+            135deg,
+            #efebff,
+            #e7fbfa
+        );
+
+    box-shadow:
+        0 5px 17px rgba(128,100,255,.13);
+}
+
+
+/* =====================================================
+   FINISH
+===================================================== */
+
+.finish-area {
+    margin-top: 35px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #e9e9f2;
+
+    text-align: center;
+}
+
+.finish-hint {
+    margin: 0 0 15px;
+
+    color: #777b91;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+button {
+    border: none;
+
+    border-radius: 15px;
+
+    padding: 15px 27px;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s,
+        opacity .2s,
+        box-shadow .2s;
+}
+
+.primary-button {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            #614bd5
+        );
+
+    box-shadow:
+        0 10px 25px rgba(128,100,255,.28);
+}
+
+.primary-button:hover {
+    transform: translateY(-2px);
+}
+
+.primary-button:disabled {
+    opacity: .42;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+.secondary-button {
+    color: #5141a5;
+
+    background: #eeecfb;
+}
+
+.secondary-button:hover {
+    transform: translateY(-2px);
+}
+
+.error {
+    display: none;
+
+    max-width: 600px;
+
+    margin: 15px auto 0;
+
+    padding: 13px 15px;
+
+    border-radius: 12px;
+
+    color: #9d3d48;
+
+    background: #fff0f1;
+
+    border: 1px solid #ffcdd2;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+#resultCard {
+    display: none;
+}
+
+.result-header {
+    text-align: center;
+
+    padding-bottom: 23px;
+
+    border-bottom: 1px solid #e9e9f2;
+}
+
+.result-symbol {
+    width: 68px;
+    height: 68px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 15px;
+
+    border-radius: 22px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--cyan)
+        );
+
+    font-size: 30px;
+
+    box-shadow:
+        0 12px 30px rgba(128,100,255,.22);
+}
+
+.result-header h2 {
+    margin: 0 0 12px;
+
+    font-size: 29px;
+}
+
+.result-type {
+    display: inline-block;
+
+    padding: 9px 15px;
+
+    border-radius: 30px;
+
+    color: #5542a8;
+
+    background: #eeebff;
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   RESULT PROFILE
+===================================================== */
+
+.profile-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin: 23px 0;
+}
+
+.profile-item {
+    padding: 17px;
+
+    border-radius: 15px;
+
+    background: #f6f5fb;
+}
+
+.profile-label {
+    margin-bottom: 6px;
+
+    color: #777b92;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+}
+
+.profile-value {
+    color: #3f337f;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    line-height: 1.3;
+}
+
+
+/* =====================================================
+   MOTIVATION SCORES
+===================================================== */
+
+.result-section {
+    margin-top: 28px;
+}
+
+.result-section h3 {
+    margin: 0 0 9px;
+
+    font-size: 20px;
+}
+
+.result-section-description {
+    margin: 0 0 17px;
+
+    color: var(--gray);
+
+    line-height: 1.55;
+
+    font-size: 14px;
+}
+
+.motivator {
+    margin: 16px 0;
+}
+
+.motivator-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 7px;
+}
+
+.motivator-name {
+    font-weight: 700;
+
+    color: #383c53;
+}
+
+.motivator-percent {
+    color: #6550c5;
+
+    font-weight: 800;
+}
+
+.motivator-track {
+    width: 100%;
+
+    height: 9px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: #e8e8f1;
+}
+
+.motivator-fill {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--cyan)
+        );
+
+    transition: width .7s ease;
+}
+
+
+/* =====================================================
+   RADAR / VISUAL MAP
+===================================================== */
+
+.radar-wrapper {
+    display: flex;
+
+    justify-content: center;
+
+    margin: 20px 0;
+}
+
+.radar {
+    position: relative;
+
+    width: min(100%, 420px);
+
+    aspect-ratio: 1 / 1;
+}
+
+.radar svg {
+    width: 100%;
+    height: 100%;
+}
+
+.radar-polygon {
+    fill: rgba(128,100,255,.25);
+
+    stroke: #765de9;
+
+    stroke-width: 2;
+}
+
+.radar-grid {
+    fill: none;
+
+    stroke: #ddddeb;
+
+    stroke-width: 1;
+}
+
+.radar-axis {
+    stroke: #e1e1ed;
+
+    stroke-width: 1;
+}
+
+
+/* =====================================================
+   TEXT BLOCKS
+===================================================== */
+
+.text-block {
+    padding: 18px;
+
+    margin-top: 15px;
+
+    border-radius: 15px;
+
+    background: #f7f7fb;
+}
+
+.text-block h4 {
+    margin: 0 0 8px;
+
+    color: #383c53;
+
+    font-size: 16px;
+}
+
+.text-block p {
+    margin: 0;
+
+    color: #62677d;
+
+    line-height: 1.65;
+
+    font-size: 14px;
+}
+
+.result-list {
+    margin: 10px 0 0;
+
+    padding-left: 20px;
+
+    color: #62677d;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   RISK
+===================================================== */
+
+.risk-box {
+    padding: 18px;
+
+    border-radius: 16px;
+
+    background: #fff8ef;
+
+    border: 1px solid #ffe0b8;
+}
+
+.risk-box h4 {
+    margin: 0 0 8px;
+
+    color: #9a6129;
+}
+
+.risk-box p {
+    margin: 0;
+
+    color: #77624d;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+.restart-area {
+    text-align: center;
+
+    margin-top: 30px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #e9e9f2;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-top: 25px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 18px 11px 45px;
+    }
+
+    .card {
+        padding: 21px;
+
+        border-radius: 20px;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header h1 {
+        letter-spacing: -.8px;
+    }
+
+    .question-title {
+        font-size: 15px;
+    }
+
+    .option label {
+        padding: 13px 14px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="badge">
+        ✦ HR-инструмент • Карта мотивации
+    </div>
+
+    <h1>
+        Карта мотивации
+    </h1>
+
+    <p class="header-subtitle">
+        Пройдите тест, чтобы определить ведущие факторы
+        вашей рабочей мотивации и получить персональный
+        мотивационный профиль.
+    </p>
+
+</header>
+
+
+<!-- =====================================================
+     PROGRESS
+===================================================== -->
+
+<div class="progress-card">
+
+    <div class="progress-top">
+
+        <span>
+            Прогресс прохождения
+        </span>
+
+        <span
+            class="progress-number"
+            id="progressText">
+
+            0%
+
+        </span>
+
+    </div>
+
+    <div class="progress">
+
+        <div
+            class="progress-bar"
+            id="progressBar">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TEST CARD
+===================================================== -->
+
+<div
+    class="card"
+    id="testCard">
+
+    <h2>
+        Пройдите тест
+    </h2>
+
+    <p class="card-intro">
+        В каждом вопросе выберите вариант, который
+        наиболее точно соответствует вам. Здесь нет
+        правильных или неправильных ответов.
+        Результат появится только после завершения
+        всего теста.
+    </p>
+
+
+    <!-- =================================================
+         SECTION 1
+    ================================================== -->
+
+    <div class="section-title">
+
+        <div class="section-number">
+            01
+        </div>
+
+        <h3>
+            Что вас мотивирует
+        </h3>
+
+    </div>
+
+
+    <!-- Q1 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">1.</span>
+            Что для вас наиболее важно в работе?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="money"
+                    id="q1a">
+
+                <label for="q1a">
+                    Высокий доход и финансовое вознаграждение
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="growth"
+                    id="q1b">
+
+                <label for="q1b">
+                    Возможность развиваться и профессионально расти
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="recognition"
+                    id="q1c">
+
+                <label for="q1c">
+                    Признание моих результатов и достижений
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="autonomy"
+                    id="q1d">
+
+                <label for="q1d">
+                    Свобода самостоятельно принимать решения
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="meaning"
+                    id="q1e">
+
+                <label for="q1e">
+                    Ощущение смысла и пользы от своей работы
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Q2 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">2.</span>
+            Что сильнее всего заставляет вас стараться?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q2"
+                    value="money"
+                    id="q2a">
+
+                <label for="q2a">
+                    Понимание, что хороший результат принесёт больше денег
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q2"
+                    value="growth"
+                    id="q2b">
+
+                <label for="q2b">
+                    Возможность получить новый опыт
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q2"
+                    value="recognition"
+                    id="q2c">
+
+                <label for="q2c">
+                    Похвала и признание со стороны руководителя
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q2"
+                    value="autonomy"
+                    id="q2d">
+
+                <label for="q2d">
+                    Доверие и возможность самому принимать решения
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q2"
+                    value="meaning"
+                    id="q2e">
+
+                <label for="q2e">
+                    Понимание, что моя работа действительно важна
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Q3 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">3.</span>
+            Что вы хотите получить от работы в ближайшее время?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="money"
+                    id="q3a">
+
+                <label for="q3a">
+                    Более высокий доход и финансовую стабильность
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="growth"
+                    id="q3b">
+
+                <label for="q3b">
+                    Новые знания, навыки или повышение
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="recognition"
+                    id="q3c">
+
+                <label for="q3c">
+                    Повышение статуса и уважения
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="autonomy"
+                    id="q3d">
+
+                <label for="q3d">
+                    Больше свободы в работе
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="meaning"
+                    id="q3e">
+
+                <label for="q3e">
+                    Понимание, что я занимаюсь полезным делом
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SECTION 2
+    ================================================== -->
+
+    <div class="section-title">
+
+        <div class="section-number">
+            02
+        </div>
+
+        <h3>
+            Рабочий стиль
+        </h3>
+
+    </div>
+
+
+    <!-- Q4 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">4.</span>
+            Какой стиль работы вам ближе?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q4"
+                    value="driver"
+                    id="q4a">
+
+                <label for="q4a">
+                    Быстрый темп, амбициозные цели и конкретный результат
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q4"
+                    value="analyst"
+                    id="q4b">
+
+                <label for="q4b">
+                    Анализ, факты, логика и точность
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q4"
+                    value="communicator"
+                    id="q4c">
+
+                <label for="q4c">
+                    Общение, команда и взаимодействие с людьми
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q4"
+                    value="executor"
+                    id="q4d">
+
+                <label for="q4d">
+                    Порядок, понятные задачи и стабильность
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Q5 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">5.</span>
+            Что вы делаете, когда получаете сложную задачу?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q5"
+                    value="driver"
+                    id="q5a">
+
+                <label for="q5a">
+                    Сразу берусь за неё и хочу доказать, что справлюсь
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q5"
+                    value="analyst"
+                    id="q5b">
+
+                <label for="q5b">
+                    Сначала собираю информацию и анализирую ситуацию
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q5"
+                    value="communicator"
+                    id="q5c">
+
+                <label for="q5c">
+                    Обсуждаю задачу с другими людьми
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q5"
+                    value="executor"
+                    id="q5d">
+
+                <label for="q5d">
+                    Разбиваю её на понятные этапы
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Q6 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">6.</span>
+            Что больше всего раздражает вас в рабочем процессе?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q6"
+                    value="driver"
+                    id="q6a">
+
+                <label for="q6a">
+                    Медленный темп и отсутствие результата
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q6"
+                    value="analyst"
+                    id="q6b">
+
+                <label for="q6b">
+                    Отсутствие логики, данных и чётких аргументов
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q6"
+                    value="communicator"
+                    id="q6c">
+
+                <label for="q6c">
+                    Плохая коммуникация и напряжение в команде
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q6"
+                    value="executor"
+                    id="q6d">
+
+                <label for="q6d">
+                    Хаос, постоянные изменения и отсутствие порядка
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SECTION 3
+    ================================================== -->
+
+    <div class="section-title">
+
+        <div class="section-number">
+            03
+        </div>
+
+        <h3>
+            Отношение к работе
+        </h3>
+
+    </div>
+
+
+    <!-- Q7 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">7.</span>
+            Какая похвала для вас наиболее ценна?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q7"
+                    value="driver"
+                    id="q7a">
+
+                <label for="q7a">
+                    «Ты отлично справился и достиг результата»
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q7"
+                    value="analyst"
+                    id="q7b">
+
+                <label for="q7b">
+                    «Ты очень хорошо разбираешься в этом»
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q7"
+                    value="communicator"
+                    id="q7c">
+
+                <label for="q7c">
+                    «С тобой очень приятно работать»
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q7"
+                    value="executor"
+                    id="q7d">
+
+                <label for="q7d">
+                    «На тебя всегда можно положиться»
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Q8 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">8.</span>
+            Что сильнее всего снижает вашу мотивацию?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q8"
+                    value="money"
+                    id="q8a">
+
+                <label for="q8a">
+                    Когда мой вклад недостаточно вознаграждается
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q8"
+                    value="growth"
+                    id="q8b">
+
+                <label for="q8b">
+                    Когда нет возможностей для развития
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q8"
+                    value="recognition"
+                    id="q8c">
+
+                <label for="q8c">
+                    Когда мои достижения остаются незамеченными
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q8"
+                    value="autonomy"
+                    id="q8d">
+
+                <label for="q8d">
+                    Когда меня постоянно контролируют
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q8"
+                    value="meaning"
+                    id="q8e">
+
+                <label for="q8e">
+                    Когда я не понимаю смысла своей работы
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Q9 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">9.</span>
+            Как вы предпочитаете получать обратную связь?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q9"
+                    value="recognition"
+                    id="q9a">
+
+                <label for="q9a">
+                    Мне важно услышать, что я хорошо справился
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q9"
+                    value="growth"
+                    id="q9b">
+
+                <label for="q9b">
+                    Хочу понимать, что можно улучшить и чему научиться
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q9"
+                    value="autonomy"
+                    id="q9c">
+
+                <label for="q9c">
+                    Предпочитаю самостоятельно оценивать свой результат
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q9"
+                    value="meaning"
+                    id="q9d">
+
+                <label for="q9d">
+                    Мне важно понимать, насколько моя работа полезна
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Q10 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">10.</span>
+            Что для вас означает хорошая работа?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q10"
+                    value="money"
+                    id="q10a">
+
+                <label for="q10a">
+                    Хороший результат и достойное вознаграждение
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q10"
+                    value="growth"
+                    id="q10b">
+
+                <label for="q10b">
+                    Работа, в которой я постоянно развиваюсь
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q10"
+                    value="recognition"
+                    id="q10c">
+
+                <label for="q10c">
+                    Работа, где мой вклад замечают и ценят
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q10"
+                    value="autonomy"
+                    id="q10d">
+
+                <label for="q10d">
+                    Работа, где мне доверяют
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q10"
+                    value="meaning"
+                    id="q10e">
+
+                <label for="q10e">
+                    Работа, которая имеет смысл и приносит пользу
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SECTION 4
+    ================================================== -->
+
+    <div class="section-title">
+
+        <div class="section-number">
+            04
+        </div>
+
+        <h3>
+            Цели и предпочтения
+        </h3>
+
+    </div>
+
+
+    <!-- Q11 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">11.</span>
+            Какая задача скорее всего вас заинтересует?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q11"
+                    value="driver"
+                    id="q11a">
+
+                <label for="q11a">
+                    Задача с высокой целью и заметным результатом
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q11"
+                    value="analyst"
+                    id="q11b">
+
+                <label for="q11b">
+                    Задача, требующая глубокого анализа
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q11"
+                    value="communicator"
+                    id="q11c">
+
+                <label for="q11c">
+                    Задача, связанная с людьми и коммуникацией
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q11"
+                    value="executor"
+                    id="q11d">
+
+                <label for="q11d">
+                    Задача с понятным планом и конкретными этапами
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Q12 -->
+
+    <div class="question">
+
+        <div class="question-title">
+            <span class="question-number">12.</span>
+            Если вам предлагают новый проект, что заинтересует вас больше?
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q12"
+                    value="money"
+                    id="q12a">
+
+                <label for="q12a">
+                    Возможность получить дополнительное вознаграждение
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q12"
+                    value="growth"
+                    id="q12b">
+
+                <label for="q12b">
+                    Возможность получить новый опыт
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q12"
+                    value="recognition"
+                    id="q12c">
+
+                <label for="q12c">
+                    Возможность показать свои способности
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q12"
+                    value="autonomy"
+                    id="q12d">
+
+                <label for="q12d">
+                    Возможность самому управлять проектом
+                </label>
+            </div>
+
+            <div class="option">
+                <input
+                    type="radio"
+                    name="q12"
+                    value="meaning"
+                    id="q12e">
+
+                <label for="q12e">
+                    Возможность сделать что-то действительно полезное
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         FINISH
+    ================================================== -->
+
+    <div class="finish-area">
+
+        <p class="finish-hint">
+            Ответьте на все 12 вопросов.
+            После этого станет доступна кнопка завершения теста.
+        </p>
+
+        <button
+            class="primary-button"
+            id="finishButton"
+            onclick="finishTest()"
+            disabled>
+
+            Завершить тест
+
+        </button>
+
+        <div
+            class="error"
+            id="error">
+
+            Пожалуйста, ответьте на все вопросы.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RESULT CARD
+===================================================== -->
+
+<div
+    class="card"
+    id="resultCard">
+
+
+    <div class="result-header">
+
+        <div class="result-symbol">
+            ✦
+        </div>
+
+        <h2>
+            Ваша карта мотивации
+        </h2>
+
+        <div
+            class="result-type"
+            id="resultType">
+        </div>
+
+    </div>
+
+
+    <!-- PROFILE -->
+
+    <div class="profile-grid">
+
+        <div class="profile-item">
+
+            <div class="profile-label">
+                Ведущий мотиватор
+            </div>
+
+            <div
+                class="profile-value"
+                id="mainMotivator">
+            </div>
+
+        </div>
+
+
+        <div class="profile-item">
+
+            <div class="profile-label">
+                Рабочий тип
+            </div>
+
+            <div
+                class="profile-value"
+                id="workType">
+            </div>
+
+        </div>
+
+
+        <div class="profile-item">
+
+            <div class="profile-label">
+                Сегмент
+            </div>
+
+            <div
+                class="profile-value"
+                id="segment">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MOTIVATION -->
+
+    <div class="result-section">
+
+        <h3>
+            Профиль мотивации
+        </h3>
+
+        <p class="result-section-description">
+            Чем выше показатель, тем сильнее этот фактор
+            влияет на вашу рабочую мотивацию.
+        </p>
+
+
+        <div class="motivator">
+
+            <div class="motivator-top">
+
+                <span class="motivator-name">
+                    Деньги
+                </span>
+
+                <span
+                    class="motivator-percent"
+                    id="moneyPercent">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="motivator-track">
+
+                <div
+                    class="motivator-fill"
+                    id="moneyFill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="motivator">
+
+            <div class="motivator-top">
+
+                <span class="motivator-name">
+                    Рост
+                </span>
+
+                <span
+                    class="motivator-percent"
+                    id="growthPercent">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="motivator-track">
+
+                <div
+                    class="motivator-fill"
+                    id="growthFill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="motivator">
+
+            <div class="motivator-top">
+
+                <span class="motivator-name">
+                    Признание
+                </span>
+
+                <span
+                    class="motivator-percent"
+                    id="recognitionPercent">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="motivator-track">
+
+                <div
+                    class="motivator-fill"
+                    id="recognitionFill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="motivator">
+
+            <div class="motivator-top">
+
+                <span class="motivator-name">
+                    Автономия
+                </span>
+
+                <span
+                    class="motivator-percent"
+                    id="autonomyPercent">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="motivator-track">
+
+                <div
+                    class="motivator-fill"
+                    id="autonomyFill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="motivator">
+
+            <div class="motivator-top">
+
+                <span class="motivator-name">
+                    Смысл
+                </span>
+
+                <span
+                    class="motivator-percent"
+                    id="meaningPercent">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="motivator-track">
+
+                <div
+                    class="motivator-fill"
+                    id="meaningFill">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RADAR -->
+
+    <div class="result-section">
+
+        <h3>
+            Визуальная карта
+        </h3>
+
+        <div class="radar-wrapper">
+
+            <div class="radar">
+
+                <svg
+                    viewBox="0 0 420 420"
+                    id="radarSvg">
+
+                    <!-- circles -->
+
+                    <polygon
+                        class="radar-grid"
+                        points="210,45 367,159 307,345 113,345 53,159">
+                    </polygon>
+
+                    <polygon
+                        class="radar-grid"
+                        points="210,82 333,171 286,316 134,316 87,171">
+                    </polygon>
+
+                    <polygon
+                        class="radar-grid"
+                        points="210,119 300,182 264,287 156,287 120,182">
+                    </polygon>
+
+                    <polygon
+                        class="radar-grid"
+                        points="210,156 270,193 243,258 177,258 150,193">
+                    </polygon>
+
+
+                    <!-- axes -->
+
+                    <line
+                        class="radar-axis"
+                        x1="210"
+                        y1="210"
+                        x2="210"
+                        y2="45">
+                    </line>
+
+                    <line
+                        class="radar-axis"
+                        x1="210"
+                        y1="210"
+                        x2="367"
+                        y2="159">
+                    </line>
+
+                    <line
+                        class="radar-axis"
+                        x1="210"
+                        y1="210"
+                        x2="307"
+                        y2="345">
+                    </line>
+
+                    <line
+                        class="radar-axis"
+                        x1="210"
+                        y1="210"
+                        x2="113"
+                        y2="345">
+                    </line>
+
+                    <line
+                        class="radar-axis"
+                        x1="210"
+                        y1="210"
+                        x2="53"
+                        y2="159">
+                    </line>
+
+
+                    <!-- result polygon -->
+
+                    <polygon
+                        id="radarPolygon"
+                        class="radar-polygon"
+                        points="210,210 210,210 210,210 210,210 210,210">
+                    </polygon>
+
+
+                    <!-- labels -->
+
+                    <text
+                        x="210"
+                        y="25"
+                        text-anchor="middle"
+                        font-size="13"
+                        fill="#676b80">
+                        Деньги
+                    </text>
+
+                    <text
+                        x="389"
+                        y="155"
+                        text-anchor="middle"
+                        font-size="13"
+                        fill="#676b80">
+                        Рост
+                    </text>
+
+                    <text
+                        x="315"
+                        y="375"
+                        text-anchor="middle"
+                        font-size="13"
+                        fill="#676b80">
+                        Признание
+                    </text>
+
+                    <text
+                        x="105"
+                        y="375"
+                        text-anchor="middle"
+                        font-size="13"
+                        fill="#676b80">
+                        Автономия
+                    </text>
+
+                    <text
+                        x="30"
+                        y="155"
+                        text-anchor="middle"
+                        font-size="13"
+                        fill="#676b80">
+                        Смысл
+                    </text>
+
+                </svg>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DESCRIPTION -->
+
+    <div class="result-section">
+
+        <h3>
+            Что это означает
+        </h3>
+
+        <div class="text-block">
+
+            <h4 id="profileTitle">
+            </h4>
+
+            <p id="profileDescription">
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- RECOMMENDATIONS -->
+
+    <div class="result-section">
+
+        <h3>
+            Что может вас мотивировать
+        </h3>
+
+        <div class="text-block">
+
+            <ul
+                class="result-list"
+                id="recommendationList">
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUESTION -->
+
+    <div class="result-section">
+
+        <h3>
+            Вопрос для дальнейшего разговора
+        </h3>
+
+        <div class="text-block">
+
+            <p id="conversationQuestion">
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- RISK -->
+
+    <div class="result-section">
+
+        <h3>
+            Возможный риск демотивации
+        </h3>
+
+        <div class="risk-box">
+
+            <h4>
+                На что стоит обратить внимание
+            </h4>
+
+            <p id="riskText">
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESTART -->
+
+    <div class="restart-area">
+
+        <button
+            class="secondary-button"
+            onclick="restartTest()">
+
+            Пройти тест заново
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="footer">
+    Карта мотивации • HR-инструмент
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   ОСНОВНЫЕ НАСТРОЙКИ
+===================================================== */
+
+const TOTAL_QUESTIONS = 12;
+
+
+/* =====================================================
+   ДАННЫЕ МОТИВАТОРОВ
+===================================================== */
+
+const MOTIVATORS = {
+
+    money: {
+        name: "Деньги",
+        description:
+            "Финансовое вознаграждение, бонусы, материальная отдача и понятная связь между результатом и оплатой."
+    },
+
+    growth: {
+        name: "Рост",
+        description:
+            "Развитие компетенций, обучение, новые задачи, карьерные возможности и профессиональный прогресс."
+    },
+
+    recognition: {
+        name: "Признание",
+        description:
+            "Похвала, уважение, статус, видимость результатов и ощущение, что вклад человека замечают."
+    },
+
+    autonomy: {
+        name: "Автономия",
+        description:
+            "Свобода действий, доверие, самостоятельные решения и возможность влиять на способ выполнения работы."
+    },
+
+    meaning: {
+        name: "Смысл",
+        description:
+            "Понимание пользы своей работы, ценности результата и соответствия работы личным ценностям."
+    }
+
+};
+
+
+/* =====================================================
+   ТИПЫ
+===================================================== */
+
+const TYPES = {
+
+    driver: {
+        name: "Драйвер",
+        description:
+            "Ориентирован на результат, цели, скорость и достижение заметных показателей. Лучше всего раскрывается там, где есть вызов и возможность влиять на результат.",
+
+        recommendations: [
+            "ставить конкретные и измеримые цели",
+            "давать сложные задачи и зоны ответственности",
+            "показывать связь результата с вознаграждением",
+            "давать возможность видеть собственный прогресс"
+        ],
+
+        risk:
+            "Потеря интереса при слишком медленном темпе, отсутствии амбициозных целей и невозможности увидеть результат своей работы.",
+
+        question:
+            "Какая цель или задача сейчас была бы для вас достаточно интересной, чтобы хотелось превзойти ожидаемый результат?"
+    },
+
+
+    analyst: {
+        name: "Аналитик",
+        description:
+            "Ориентирован на логику, качество, факты и профессиональную компетентность. Предпочитает сначала разобраться в ситуации, а затем принимать решение.",
+
+        recommendations: [
+            "предоставлять доступ к информации и данным",
+            "давать задачи, требующие анализа и экспертизы",
+            "объяснять логику принимаемых решений",
+            "создавать возможности для профессионального развития"
+        ],
+
+        risk:
+            "Демотивация может возникать из-за хаоса, непродуманных решений, отсутствия информации и требований действовать без возможности разобраться в ситуации.",
+
+        question:
+            "Какие знания или навыки помогли бы вам сейчас выполнять работу ещё сильнее?"
+    },
+
+
+    communicator: {
+        name: "Коммуникатор",
+        description:
+            "Сильно ориентирован на людей, взаимодействие и качество отношений. Важными источниками энергии становятся команда, обратная связь и ощущение социальной значимости.",
+
+        recommendations: [
+            "поддерживать качественную коммуникацию",
+            "давать возможность работать с людьми",
+            "регулярно давать обратную связь",
+            "признавать вклад в командный результат"
+        ],
+
+        risk:
+            "Снижение вовлечённости при отсутствии контакта с командой, плохой коммуникации, конфликтной атмосфере или ощущении, что вклад не замечают.",
+
+        question:
+            "Что в командном взаимодействии сейчас помогло бы вам чувствовать себя более вовлечённо?"
+    },
+
+
+    executor: {
+        name: "Исполнитель",
+        description:
+            "Ценит понятность, порядок, стабильность и предсказуемость. Лучше работает, когда понимает задачу, критерии результата и последовательность действий.",
+
+        recommendations: [
+            "давать понятные задачи и критерии результата",
+            "создавать предсказуемый рабочий процесс",
+            "фиксировать договорённости",
+            "отмечать надёжность и качество выполнения"
+        ],
+
+        risk:
+            "Демотивация может возникать из-за постоянного хаоса, неопределённости, резких изменений и отсутствия понятных приоритетов.",
+
+        question:
+            "Что сейчас помогло бы вам сделать рабочий процесс более понятным и комфортным?"
+    }
+
+};
+
+
+/* =====================================================
+   СЕГМЕНТЫ
+===================================================== */
+
+const SEGMENTS = {
+
+    high: {
+        name: "Высокая вовлечённость",
+        description:
+            "Профиль показывает выраженную мотивацию и наличие факторов, которые могут поддерживать высокий уровень вовлечённости."
+    },
+
+    core: {
+        name: "Стабильный сотрудник",
+        description:
+            "Основные мотивационные факторы выражены достаточно сбалансированно. Для поддержания вовлечённости важно сохранять подходящие условия работы."
+    },
+
+    low: {
+        name: "Зона внимания",
+        description:
+            "Профиль показывает потенциальные точки демотивации. Особенно важно понять, какие условия работы сейчас отсутствуют."
+    }
+
+};
+
+
+/* =====================================================
+   ОБНОВЛЕНИЕ ПРОГРЕССА
+===================================================== */
+
+function updateProgress() {
+
+    let answered = 0;
+
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+
+        const selected = document.querySelector(
+            `input[name="q${i}"]:checked`
+        );
+
+        if (selected) {
+            answered++;
+        }
+    }
+
+    const percent = Math.round(
+        answered / TOTAL_QUESTIONS * 100
+    );
+
+    document.getElementById("progressText")
+        .textContent = percent + "%";
+
+    document.getElementById("progressBar")
+        .style.width = percent + "%";
+
+
+    const button =
+        document.getElementById("finishButton");
+
+    button.disabled =
+        answered !== TOTAL_QUESTIONS;
+
+}
+
+
+/* =====================================================
+   ПОДКЛЮЧАЕМ ОТВЕТЫ
+===================================================== */
+
+document
+    .querySelectorAll('input[type="radio"]')
+    .forEach(input => {
+
+        input.addEventListener(
+            "change",
+            updateProgress
+        );
+
+    });
+
+
+/* =====================================================
+   ПОЛУЧЕНИЕ ОТВЕТОВ
+===================================================== */
+
+function getAnswers() {
+
+    const answers = [];
+
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+
+        const selected = document.querySelector(
+            `input[name="q${i}"]:checked`
+        );
+
+        if (!selected) {
+            return null;
+        }
+
+        answers.push(selected.value);
+    }
+
+    return answers;
+}
+
+
+/* =====================================================
+   РАСЧЁТ МОТИВАТОРОВ
+===================================================== */
+
+function calculateMotivators(answers) {
+
+    const scores = {
+
+        money: 0,
+        growth: 0,
+        recognition: 0,
+        autonomy: 0,
+        meaning: 0
+
+    };
+
+
+    answers.forEach(answer => {
+
+        if (scores.hasOwnProperty(answer)) {
+            scores[answer]++;
+        }
+
+    });
+
+
+    return scores;
+
+}
+
+
+/* =====================================================
+   РАСЧЁТ ТИПА
+===================================================== */
+
+function calculateType(answers) {
+
+    const scores = {
+
+        driver: 0,
+        analyst: 0,
+        communicator: 0,
+        executor: 0
+
+    };
+
+
+    answers.forEach(answer => {
+
+        if (scores.hasOwnProperty(answer)) {
+            scores[answer]++;
+        }
+
+    });
+
+
+    const sorted = Object.entries(scores)
+        .sort((a, b) => b[1] - a[1]);
+
+
+    return sorted[0][0];
+
+}
+
+
+/* =====================================================
+   ПРОЦЕНТЫ
+===================================================== */
+
+function calculatePercentages(scores) {
+
+    const max = Math.max(
+        ...Object.values(scores)
+    );
+
+
+    const percentages = {};
+
+
+    Object.keys(scores).forEach(key => {
+
+        if (max === 0) {
+
+            percentages[key] = 0;
+
+        } else {
+
+            percentages[key] =
+                Math.round(
+                    scores[key] / max * 100
+                );
+
+        }
+
+    });
+
+
+    return percentages;
+
+}
+
+
+/* =====================================================
+   СЕГМЕНТ
+===================================================== */
+
+function calculateSegment(percentages) {
+
+    const values =
+        Object.values(percentages);
+
+    const average =
+        values.reduce(
+            (sum, value) => sum + value,
+            0
+        ) / values.length;
+
+
+    if (average >= 70) {
+        return "high";
+    }
+
+    if (average >= 45) {
+        return "core";
+    }
+
+    return "low";
+
+}
+
+
+/* =====================================================
+   ПОКАЗ МОТИВАТОРОВ
+===================================================== */
+
+function renderMotivators(percentages) {
+
+    const ids = [
+        "money",
+        "growth",
+        "recognition",
+        "autonomy",
+        "meaning"
+    ];
+
+
+    ids.forEach(id => {
+
+        const value =
+            percentages[id];
+
+        document.getElementById(
+            id + "Percent"
+        ).textContent =
+            value + "%";
+
+
+        document.getElementById(
+            id + "Fill"
+        ).style.width =
+            value + "%";
+
+    });
+
+}
+
+
+/* =====================================================
+   РАДАР
+===================================================== */
+
+function renderRadar(percentages) {
+
+    const centerX = 210;
+    const centerY = 210;
+
+    const radius = 165;
+
+
+    const angles = [
+
+        -Math.PI / 2,
+
+        -Math.PI / 2 + 2 * Math.PI / 5,
+
+        -Math.PI / 2 + 4 * Math.PI / 5,
+
+        -Math.PI / 2 + 6 * Math.PI / 5,
+
+        -Math.PI / 2 + 8 * Math.PI / 5
+
+    ];
+
+
+    const values = [
+
+        percentages.money,
+
+        percentages.growth,
+
+        percentages.recognition,
+
+        percentages.autonomy,
+
+        percentages.meaning
+
+    ];
+
+
+    const points = values.map(
+        (value, index) => {
+
+            const r =
+                radius * value / 100;
+
+            const x =
+                centerX +
+                Math.cos(angles[index]) * r;
+
+            const y =
+                centerY +
+                Math.sin(angles[index]) * r;
+
+            return `${x},${y}`;
+
+        }
+    );
+
+
+    document.getElementById(
+        "radarPolygon"
+    ).setAttribute(
+        "points",
+        points.join(" ")
+    );
+
+}
+
+
+/* =====================================================
+   ГЛАВНАЯ ФУНКЦИЯ
+===================================================== */
+
+function finishTest() {
+
+    const answers =
+        getAnswers();
+
+
+    if (!answers) {
+
+        document.getElementById(
+            "error"
+        ).style.display = "block";
+
+        return;
+    }
+
+
+    document.getElementById(
+        "error"
+    ).style.display = "none";
+
+
+    /* ---------------------------------------------
+       МОТИВАТОРЫ
+    --------------------------------------------- */
+
+    const scores =
+        calculateMotivators(answers);
+
+
+    const percentages =
+        calculatePercentages(scores);
+
+
+    /* ---------------------------------------------
+       ВЕДУЩИЙ МОТИВАТОР
+    --------------------------------------------- */
+
+    const sortedMotivators =
+        Object.entries(scores)
+            .sort((a, b) => b[1] - a[1]);
+
+
+    const mainMotivator =
+        sortedMotivators[0][0];
+
+
+    /* ---------------------------------------------
+       ТИП
+    --------------------------------------------- */
+
+    const type =
+        calculateType(answers);
+
+
+    /* ---------------------------------------------
+       СЕГМЕНТ
+    --------------------------------------------- */
+
+    const segment =
+        calculateSegment(percentages);
+
+
+    /* ---------------------------------------------
+       ЗАПОЛНЯЕМ РЕЗУЛЬТАТ
+    --------------------------------------------- */
+
+    document.getElementById(
+        "resultType"
+    ).textContent =
+        TYPES[type].name;
+
+
+    document.getElementById(
+        "mainMotivator"
+    ).textContent =
+        MOTIVATORS[mainMotivator].name;
+
+
+    document.getElementById(
+        "workType"
+    ).textContent =
+        TYPES[type].name;
+
+
+    document.getElementById(
+        "segment"
+    ).textContent =
+        SEGMENTS[segment].name;
+
+
+    /* ---------------------------------------------
+       МОТИВАТОРЫ
+    --------------------------------------------- */
+
+    renderMotivators(percentages);
+
+
+    /* ---------------------------------------------
+       РАДАР
+    --------------------------------------------- */
+
+    renderRadar(percentages);
+
+
+    /* ---------------------------------------------
+       ОПИСАНИЕ ПРОФИЛЯ
+    --------------------------------------------- */
+
+    document.getElementById(
+        "profileTitle"
+    ).textContent =
+        TYPES[type].name +
+        " • " +
+        MOTIVATORS[mainMotivator].name;
+
+
+    document.getElementById(
+        "profileDescription"
+    ).textContent =
+        TYPES[type].description +
+        " " +
+        MOTIVATORS[mainMotivator].description +
+        " " +
+        SEGMENTS[segment].description;
+
+
+    /* ---------------------------------------------
+       РЕКОМЕНДАЦИИ
+    --------------------------------------------- */
+
+    const list =
+        document.getElementById(
+            "recommendationList"
+        );
+
+    list.innerHTML = "";
+
+
+    TYPES[type].recommendations
+        .forEach(text => {
+
+            const li =
+                document.createElement("li");
+
+            li.textContent = text;
+
+            list.appendChild(li);
+
+        });
+
+
+    /* ---------------------------------------------
+       ВОПРОС
+    --------------------------------------------- */
+
+    document.getElementById(
+        "conversationQuestion"
+    ).textContent =
+        TYPES[type].question;
+
+
+    /* ---------------------------------------------
+       РИСК
+    --------------------------------------------- */
+
+    document.getElementById(
+        "riskText"
+    ).textContent =
+        TYPES[type].risk;
+
+
+    /* ---------------------------------------------
+       СКРЫВАЕМ ТЕСТ
+    --------------------------------------------- */
+
+    document.getElementById(
+        "testCard"
+    ).style.display = "none";
+
+
+    /* ---------------------------------------------
+       ПОКАЗЫВАЕМ РЕЗУЛЬТАТ
+    --------------------------------------------- */
+
+    document.getElementById(
+        "resultCard"
+    ).style.display = "block";
+
+
+    /* ---------------------------------------------
+       ПРОКРУТКА
+    --------------------------------------------- */
+
+    document.getElementById(
+        "resultCard"
+    ).scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+/* =====================================================
+   ПРОЙТИ ЗАНОВО
+===================================================== */
+
+function restartTest() {
+
+    /* Удаляем все ответы */
+
+    document
+        .querySelectorAll(
+            'input[type="radio"]'
+        )
+        .forEach(input => {
+
+            input.checked = false;
+
+        });
+
+
+    /* Сбрасываем прогресс */
+
+    document.getElementById(
+        "progressText"
+    ).textContent = "0%";
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width = "0%";
+
+
+    /* Скрываем результат */
+
+    document.getElementById(
+        "resultCard"
+    ).style.display = "none";
+
+
+    /* Показываем тест */
+
+    document.getElementById(
+        "testCard"
+    ).style.display = "block";
+
+
+    /* Блокируем кнопку */
+
+    document.getElementById(
+        "finishButton"
+    ).disabled = true;
+
+
+    /* Убираем ошибку */
+
+    document.getElementById(
+        "error"
+    ).style.display = "none";
+
+
+    /* Наверх */
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =====================================================
+   ПЕРВИЧНЫЙ ЗАПУСК
+===================================================== */
+
+updateProgress();
+
+</script>
+
+</body>
+</html>
